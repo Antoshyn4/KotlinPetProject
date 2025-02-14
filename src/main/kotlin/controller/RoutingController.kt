@@ -5,7 +5,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 
-fun Route.RoutingController() {
+fun Route.routingController() {
     get("/api/v1/delivery-order-price") {
         println("check")
     }

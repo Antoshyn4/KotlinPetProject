@@ -3,11 +3,11 @@ package org.kotlin.ktor
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import controller.RoutingController
+import controller.routingController
 
 fun Application.configureRouting() {
     routing {
-        RoutingController()
+        routingController()
         get("/") {
             call.respondText("Hello World!")
         }
