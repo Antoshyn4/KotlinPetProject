@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.plugin.serialization)
 }
 
-group = "org.kotlin.ktor"
+group = "com.example"
 version = "0.0.1"
 
 application {
@@ -28,4 +28,10 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.mock)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
 }

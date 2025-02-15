@@ -5,11 +5,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import controller.routingController
 
-fun Application.configureRouting() {
+fun Application.configureRouting(testing: Boolean) {
     routing {
-        routingController()
-        get("/") {
-            call.respondText("Hello World!")
-        }
+        routingController(testing)
     }
 }
