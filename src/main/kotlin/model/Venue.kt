@@ -77,6 +77,7 @@ data class Venue( val venueName : String, val isTestVenue : Boolean = false) {
                 val mapOfStaticVenueData = Json.parseToJsonElement(responseStaticApi.bodyAsText()) as JsonObject
                 val mapOfDynamicVenueData = Json.parseToJsonElement( responseDynamicApi.bodyAsText()) as JsonObject
 
+                println(mapOfStaticVenueData)
                 iterateThrowTheMapAndFillNeededFields(mapOfStaticVenueData, ApiUrlLink.STATIC_API.value)
                 iterateThrowTheMapAndFillNeededFields(mapOfDynamicVenueData, ApiUrlLink.DYNAMIC_API.value)
 
@@ -90,12 +91,12 @@ data class Venue( val venueName : String, val isTestVenue : Boolean = false) {
 
     fun iterateThrowTheMapAndFillNeededFields(mapOfVenueData : Map<String, JsonElement>, typeOfApi: String){
         when (typeOfApi) {
-            "static" -> {
+            ApiUrlLink.STATIC_API.value -> {
                 listOfVenueStaticApiFieldsRouteToVenueField.forEach{ venueDatabject->
                     this[venueDatabject[venueDatabject.size - 1].removePrefix ("{").removeSuffix("}")] = recursiveGetNeededValueFromJson(mapOfVenueData as JsonObject, venueDatabject)!!
                 }
             }
-            "dynamic" -> {
+            ApiUrlLink.DYNAMIC_API.value -> {
                 listOfVenueDynamicApiFieldsRouteToVenueField.forEach{ venueDatabject->
                     this[venueDatabject[venueDatabject.size - 1].removePrefix ("{").removeSuffix("}")] = recursiveGetNeededValueFromJson(mapOfVenueData as JsonObject, venueDatabject)!!
                 }
@@ -104,7 +105,7 @@ data class Venue( val venueName : String, val isTestVenue : Boolean = false) {
     }
 
 
-    private fun recursiveGetNeededValueFromJson(jsonObject : JsonObject, listOfFields : List<String>, currentDepth : Int = 0) : JsonElement? {
+    internal fun recursiveGetNeededValueFromJson(jsonObject : JsonObject, listOfFields : List<String>, currentDepth : Int = 0) : JsonElement? {
         var neededValue : JsonElement? = null
         jsonObject.forEach {jsonElement ->
             if (jsonElement.key == listOfFields[currentDepth] ){
